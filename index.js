@@ -16,8 +16,8 @@ bot.on('message', msg=>{
     if(msg.content === "hello"){
         msg.channel.send('hewo uwu');
     }
- }
-)
+ })
+
 bot.on('message', msg=>{
 
     let args = msg.content.substring(prefix.length).split(" ");
@@ -46,10 +46,5 @@ bot.on('message', msg=>{
             break;
     }
 })
-
-
-
-
-
 
 bot.login(token);
