@@ -47,4 +47,11 @@ bot.on('message', msg=>{
     }
 })
 
+bot.on('guildMemberAdd', member=>{
+    const channel = member.guild.channels.cache.find(channel => channel.name === "welcome-to-the-house")
+    if(!channel) return;
+
+    channel.send(`Welcome to the server, ${member}, please read the rules`)
+});
+
 bot.login(token);
