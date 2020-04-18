@@ -5,7 +5,7 @@ it has some basic functionality but i might add some other cool
 
 
 ## non-command functions:
-**hello*** 
+**hello**
 > this will be read by the bot and it will reply with hewo uwu
 
 
@@ -39,7 +39,7 @@ it has some basic functionality but i might add some other cool
 **tau question <args>**
 > replace <args> with your question
 
-**tau games 
+**tau games** 
 > displays playable games
   
   
