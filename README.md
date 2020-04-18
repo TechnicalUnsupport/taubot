@@ -33,6 +33,24 @@ it has some basic functionality but i might add some other cool
 **tau info**
 > gives links to tau's yt and twitch channels
 
+**tau botinfo**
+> just gives info on the bot
+
+**tau question <args>**
+> replace <args> with your question
+
+**tau games 
+> displays playable games
+  
+  
+## games
+*playable games*
+
+**tau flip**
+> flips a coin
+
+**tau roll[1-6]**
+> roll a dice against taubot, highest number wins
 
 ## other functions:
 *no prefix and doesn't require message*
