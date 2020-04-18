@@ -4,7 +4,7 @@ const bot = new Discord.Client();
 var prefix = 'tau ';
 var embedcolor = 0x00FFFF;
 
-const token = 'nope lmfao';
+const token = 'get nae-naed';
 
 bot.on('ready', () =>{
     console.log('bot online');
@@ -16,8 +16,8 @@ bot.on('message', msg=>{
     if(msg.content === "hello"){
         msg.channel.send('hewo uwu');
     }
- }
-)
+})
+
 bot.on('message', msg=>{
 
     let args = msg.content.substring(prefix.length).split(" ");
@@ -54,7 +54,8 @@ bot.on('message', msg=>{
                 {name:'tau github',value:"*provides link to the Bot's GitHub*",inline:true},//2
                 {name:'tau info',value:"*provides links to tau's youtube and twitch*",inline:true},//3
                 {name:'\u200B',value:'\u200B'},
-                {name:'tau games',value:'*list of bot games*',inline:true}
+                {name:'tau games',value:'*list of bot games*',inline:true},
+                {name:'tau question',value:'*ask taubot a yes/no/maybe question and they will provide the answer*',inline:true}
             )
             .setFooter('Prefix: "tau"')
             msg.channel.send(help);
@@ -101,6 +102,28 @@ bot.on('message', msg=>{
             msg.channel.send(I)
             break;
 
+        case 'botinfo':
+            const binfo = new MessageEmbed()
+            .setColor(embedcolor)
+            .setTitle("Bot Info")
+            .addFields(
+                {name:'prefix:',value:"tau"},
+                {name:'Creator:',value:"TechnicalUnsupport"},
+                {name:'Official creation date:',value:"12-April-2020"},
+            )
+            .setFooter('oh and taubot is dating pinkbot tihi')
+            msg.channel.send(binfo)
+            break;
+        
+        case 'question':
+            var ynmlist = ['yes','no','perhaps']
+            var ynm = Math.floor(Math.random()*ynmlist.length);
+            var botynm = ynmlist[ynm];
+
+            msg.channel.send(botynm);
+            break;
+
+
 
 
         //games
@@ -110,7 +133,8 @@ bot.on('message', msg=>{
             .setTitle('Games')
             .setDescription('here is a list of playable games that the bot has:')
             .addFields(
-                {name:'tau roll[1-6]',value:'vs bot, highest value wins'}
+                {name:'tau roll[1-6]',value:'vs bot, highest value wins'},
+                {name:'tau flip', value:'flips a coin'}
             )
             .setFooter('more games will be made in future!')
             msg.channel.send(gembed)
@@ -140,6 +164,13 @@ bot.on('message', msg=>{
             )
 
             msg.channel.send(dembed)
+            break;
+
+        case 'flip':
+            var coinlist = ['heads','tails'];
+            var cnr = Math.floor(Math.random()*coinlist.length); 
+            var botcnr = coinlist[cnr];
+            msg.channel.send(botcnr)
             break;
 
     }
