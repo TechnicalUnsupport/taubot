@@ -1,13 +1,17 @@
 const Discord = require('discord.js');
+const ffmpeg = require('js-ffmpeg');
 const bot = new Discord.Client();
 
 var prefix = 'tau ';
 var embedcolor = 0x00FFFF;
 
-const token = 'get nae-naed';
+const token = 'nuh uh';
 
 bot.on('ready', () =>{
     console.log('bot online');
+    bot.channels.cache.get('719858656270614579').send('bot online');
+    
+    bot.user.setActivity('Tauwu',{ url: 'https://twitch.tv/justtau' ,type:'STREAMING'});
 })
 
 const { Client, MessageEmbed } = require('discord.js');
@@ -16,8 +20,8 @@ bot.on('message', msg=>{
     if(msg.content === "hello"){
         msg.channel.send('hewo uwu');
     }
-})
-
+ }
+)
 bot.on('message', msg=>{
 
     let args = msg.content.substring(prefix.length).split(" ");
@@ -50,15 +54,15 @@ bot.on('message', msg=>{
                 {name:'tau gay',value:"*you'll see :)*",inline:true},//2
                 {name:'tau ping',value:"*pings tau*",inline:true},//3
                 {name:'\u200B',value:'\u200B'},
+                {name:'tau channelsend <id> [message]',value:'*send to a specific channel*',inline:true},
                 {name:'tau msg [message]',value:"*makes the bot send a message*",inline:true},//1
                 {name:'tau github',value:"*provides link to the Bot's GitHub*",inline:true},//2
                 {name:'tau info',value:"*provides links to tau's youtube and twitch*",inline:true},//3
                 {name:'\u200B',value:'\u200B'},
-                {name:'tau games',value:'*list of bot games*',inline:true},
-                {name:'tau question',value:'*ask taubot a yes/no/maybe question and they will provide the answer*',inline:true}
+                {name:'tau games',value:'*list of bot games*',inline:true}
             )
             .setFooter('Prefix: "tau"')
-            msg.channel.send(help);
+            msg.author.send(help);
             break;
 
 
@@ -78,6 +82,7 @@ bot.on('message', msg=>{
         case 'msg':
             msg.delete()
             msg.channel.send(args.join(' ').slice(3))
+            bot.channels.cache.get('719858656270614579').send(args.join(' '));
             break;
 
 
@@ -101,28 +106,16 @@ bot.on('message', msg=>{
             .addField('Twitch','https://www.twitch.tv/justtau')
             msg.channel.send(I)
             break;
-
-        case 'botinfo':
-            const binfo = new MessageEmbed()
-            .setColor(embedcolor)
-            .setTitle("Bot Info")
-            .addFields(
-                {name:'prefix:',value:"tau"},
-                {name:'Creator:',value:"TechnicalUnsupport"},
-                {name:'Official creation date:',value:"12-April-2020"},
-            )
-            .setFooter('oh and taubot is dating pinkbot tihi')
-            msg.channel.send(binfo)
-            break;
         
-        case 'question':
-            var ynmlist = ['yes','no','perhaps']
-            var ynm = Math.floor(Math.random()*ynmlist.length);
-            var botynm = ynmlist[ynm];
-
-            msg.channel.send(botynm);
+        case 'channelsend':
+            try{
+                bot.channels.cache.get(args[1].toString()).send(args.join(' ').slice(args[1].length+13));
+            }
+            catch{
+                msg.channel.send("invalid args");
+                return;
+            }
             break;
-
 
 
 
@@ -133,16 +126,15 @@ bot.on('message', msg=>{
             .setTitle('Games')
             .setDescription('here is a list of playable games that the bot has:')
             .addFields(
-                {name:'tau roll[1-6]',value:'vs bot, highest value wins'},
-                {name:'tau flip', value:'flips a coin'}
+                {name:'tau roll[1-6]',value:'vs bot, highest value wins'}
             )
             .setFooter('more games will be made in future!')
             msg.channel.send(gembed)
             break;
-        
+
         case 'roll'://dice
             var dicelist = ['1','2','3','4','5','6'];//dice array
-            var dnr = Math.floor(Math.random()*dicelist.length);//dice 
+            var dnr = Math.floor(Math.random()*dicelist.length);//dice
             var botdnr = dicelist[dnr];//number dice lands on(bot's number)
             dwinner = 'n/a'//if no values are given,default
             if(args[1] > botdnr){//if player wins
@@ -166,15 +158,21 @@ bot.on('message', msg=>{
             msg.channel.send(dembed)
             break;
 
-        case 'flip':
-            var coinlist = ['heads','tails'];
-            var cnr = Math.floor(Math.random()*coinlist.length); 
-            var botcnr = coinlist[cnr];
-            msg.channel.send(botcnr)
+          case 'blackjack':
+            
             break;
 
     }
 })
+bot.on("messageDelete", (messageDelete) => {
+    if(messageDelete.guild.id != '338751520948355082'){
+        bot.channels.cache.get('719858656270614579').send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted.(not from the house)`);
+        return;
+    }else{
+        bot.channels.cache.get('690152438799269890').send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted.`);
+        bot.channels.cache.get('719858656270614579').send(`The message : "${messageDelete.content}" by ${messageDelete.author.tag} was deleted.(from the house)`);
+    }
+   });
 
 bot.on('guildMemberAdd', member=>{
     const channel = member.guild.channels.cache.find(channel => channel.name === "welcome-to-the-house")
